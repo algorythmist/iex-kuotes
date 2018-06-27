@@ -19,7 +19,7 @@ internal class IEXQuoteSupplierTest {
         assertTrue(quotes1y.size > 250 )
     }
 
-    //@Test
+    @Test
     fun readQuotesFromResource() {
         val quoteReader = IEXQuoteSupplier(filename = "nflx_1y.json")
         val quotes1m = quoteReader.getQuotes("NFLX")
@@ -27,6 +27,7 @@ internal class IEXQuoteSupplierTest {
         val quote1 = quotes1m[0]
         assertEquals(155.03, quote1.close)
         assertEquals(5803446, quote1.volume)
+        assertEquals(LocalDate.of(2017,6,21), quote1.date)
     }
 
     @Test

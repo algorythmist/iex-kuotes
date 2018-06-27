@@ -42,9 +42,7 @@ class IEXQuoteSupplier(val filename : String? = null) : QuoteSupplier {
         return bufferedReader.use { it.readText() }
     }
 
-    //TODO find resource anywhere
-    private fun readResource(name: String) = this::class.java.getResource(name).readText()
-
+    private fun readResource(name: String) = ClassLoader.getSystemResource(name).readText()
 
     private fun httpRequest(url: String): String? {
         val request = Request.Builder().url(url).build();
