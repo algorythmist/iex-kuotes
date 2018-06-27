@@ -8,7 +8,7 @@ import java.time.LocalDate
 class IEXQuoteSupplierTest {
 
     @Test
-    fun readQuotes() {
+    fun testReadQuotes() {
         val quoteReader = IEXQuoteSupplier()
         val quotes1m = quoteReader.getQuotes("NFLX", Range.ONE_MONTH)
         assertEquals(21, quotes1m.size)
@@ -18,7 +18,7 @@ class IEXQuoteSupplierTest {
     }
 
     @Test
-    fun readQuotesFromResource() {
+    fun testReadQuotesFromResource() {
         val quoteReader = IEXQuoteSupplier(filename = "nflx_1y.json")
         val quotes1m = quoteReader.getQuotes("NFLX")
         assertEquals(253, quotes1m.size)
@@ -29,7 +29,7 @@ class IEXQuoteSupplierTest {
     }
 
     @Test
-    fun readDividends() {
+    fun testReadDividends() {
         val quoteReader = IEXQuoteSupplier()
         val dividends = quoteReader.getDividends("AAPL", Range.ONE_YEAR)
         assertEquals(4, dividends.size)
@@ -39,7 +39,7 @@ class IEXQuoteSupplierTest {
     }
 
     @Test
-    fun readSplits() {
+    fun testReadSplits() {
         val quoteReader = IEXQuoteSupplier()
         val splits = quoteReader.getSplits("AAPL", Range.FIVE_YEARS)
         assertEquals(1, splits.size)
