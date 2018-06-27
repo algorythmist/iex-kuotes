@@ -22,7 +22,7 @@ interface QuoteSupplier {
 class IEXQuoteSupplier(val filename : String? = null) : QuoteSupplier {
 
     companion object {
-        val logger = LoggerFactory.getLogger(this.javaClass)
+        val logger = LoggerFactory.getLogger(this::class.java)
     }
 
     private val CHART_URL = "https://api.iextrading.com/1.0/stock/%s/chart/%s"
