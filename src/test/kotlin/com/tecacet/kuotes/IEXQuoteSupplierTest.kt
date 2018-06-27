@@ -1,9 +1,9 @@
 package com.tecacet.kuotes
 
 
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import java.time.LocalDate
 
 internal class IEXQuoteSupplierTest {
@@ -16,7 +16,7 @@ internal class IEXQuoteSupplierTest {
         println(quotes1m.get(0))
 
         val quotes1y = quoteReader.getQuotes("NFLX")
-        assertTrue(quotes1y.size > 250 )
+        assertTrue(quotes1y.size > 250)
     }
 
     @Test
@@ -27,7 +27,7 @@ internal class IEXQuoteSupplierTest {
         val quote1 = quotes1m[0]
         assertEquals(155.03, quote1.close)
         assertEquals(5803446, quote1.volume)
-        assertEquals(LocalDate.of(2017,6,21), quote1.date)
+        assertEquals(LocalDate.of(2017, 6, 21), quote1.date)
     }
 
     @Test
@@ -48,6 +48,6 @@ internal class IEXQuoteSupplierTest {
         val split = splits[0]
         assertEquals(7, split.toFactor)
         assertEquals(1, split.forFactor)
-        assertEquals(LocalDate.of(2014 ,6, 6), split.paymentDate)
+        assertEquals(LocalDate.of(2014, 6, 6), split.paymentDate)
     }
 }
