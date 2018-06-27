@@ -1,19 +1,17 @@
 package com.tecacet.kuotes
 
-
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-internal class IEXQuoteSupplierTest {
+class IEXQuoteSupplierTest {
 
     @Test
     fun readQuotes() {
         val quoteReader = IEXQuoteSupplier()
         val quotes1m = quoteReader.getQuotes("NFLX", Range.ONE_MONTH)
         assertEquals(21, quotes1m.size)
-        println(quotes1m.get(0))
 
         val quotes1y = quoteReader.getQuotes("NFLX")
         assertTrue(quotes1y.size > 250)
