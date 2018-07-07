@@ -14,7 +14,7 @@ data class Quote(
         val close: Double,
         val high: Double,
         val low: Double,
-        val volume: Int
+        val volume: Long
 )
 
 enum class QualifiedStatus(val code : String) {
