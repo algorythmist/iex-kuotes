@@ -11,7 +11,7 @@ class IEXQuoteSupplierTest {
     fun testReadQuotes() {
         val quoteReader = IEXQuoteSupplier()
         val quotes1m = quoteReader.getQuotes("NFLX", Range.ONE_MONTH)
-        assertEquals(21, quotes1m.size)
+        assertTrue(quotes1m.size > 19)
 
         val quotes1y = quoteReader.getQuotes("NFLX")
         assertTrue(quotes1y.size > 250)
