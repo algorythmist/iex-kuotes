@@ -8,12 +8,63 @@
     <artifactId>iex-kuotes</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>IEX KUOTES</name>
+    <description>
+        A Kotlin library for the IEX API: https://iextrading.com/developer/docs/
+    </description>
+    <url>https://github.com/algorythmist/iex-kuotes</url>
+
+    <developers>
+        <developer>
+            <name>Dimitri Papaioannou</name>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>TecAceT</name>
+        <url>http://www.tecacet.com</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/algorythmist/iex-kuotes</url>
+        <connection>scm:git:git@github.com:algorythmist/iex-kuotes.git</connection>
+        <developerConnection>scm:git:git@github.com:algorythmist/iex-kuotes.git</developerConnection>
+    </scm>
+
+    <ciManagement>
+        <system>TravisCI</system>
+        <url>https://travis-ci.org/algorythmist/iex-kuotes</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/algorythmist/iex-kuotes/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
-        <kotlin.version>1.2.51</kotlin.version>
+        <kotlin.version>1.2.71</kotlin.version>
         <gson.version>2.8.5</gson.version>
         <okhttp.version>3.10.0</okhttp.version>
         <slf4j.version>1.7.25</slf4j.version>
         <jupiter.version>5.2.0</jupiter.version>
+        <nexus-staging.version>1.6.8</nexus-staging.version>
+        <maven-source.version>3.0.1</maven-source.version>
+        <maven-javadoc.version>2.10.4</maven-javadoc.version>
     </properties>
 
     <dependencies>
@@ -51,7 +102,6 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
@@ -73,6 +123,43 @@
                         <id>test-compile</id>
                         <goals>
                             <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
