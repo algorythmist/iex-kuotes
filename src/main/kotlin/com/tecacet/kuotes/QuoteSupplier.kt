@@ -12,14 +12,14 @@ import java.time.LocalDate
 
 interface QuoteSupplier {
 
-    fun getQuotes(symbol: String, range : Range = Range.ONE_YEAR) : List<Quote>
+    fun getQuotes(symbol: String, range: Range = Range.ONE_YEAR): List<Quote>
 
-    fun getDividends(symbol :String, range : Range = Range.ONE_YEAR) : List<Dividend>
+    fun getDividends(symbol: String, range: Range = Range.ONE_YEAR): List<Dividend>
 
-    fun getSplits(symbol :String, range : Range = Range.ONE_YEAR) : List<Split>
+    fun getSplits(symbol: String, range: Range = Range.ONE_YEAR): List<Split>
 }
 
-class IEXQuoteSupplier(val filename : String? = null) : QuoteSupplier {
+class IEXQuoteSupplier(val filename: String? = null) : QuoteSupplier {
 
     companion object {
         val logger = LoggerFactory.getLogger(this::class.java)
@@ -30,14 +30,14 @@ class IEXQuoteSupplier(val filename : String? = null) : QuoteSupplier {
     private val SPLIT_URL = "https://api.iextrading.com/1.0/stock/%s/splits/%s"
 
     private val gsonBuilder = GsonBuilder()
-    private val httpClient =  OkHttpClient()
+    private val httpClient = OkHttpClient()
 
     init {
         gsonBuilder.registerTypeAdapter(LocalDate::class.java, LocalDateDeserializer())
         gsonBuilder.registerTypeAdapter(QualifiedStatus::class.javaObjectType, QualifiedStatusDeserializer())
     }
 
-    private fun readFile(file : File): String {
+    private fun readFile(file: File): String {
         val bufferedReader: BufferedReader = file.bufferedReader()
         return bufferedReader.use { it.readText() }
     }
@@ -50,8 +50,8 @@ class IEXQuoteSupplier(val filename : String? = null) : QuoteSupplier {
         return response.body()?.string();
     }
 
-    private fun getContent(url : String) :String? {
-       if (filename ==  null)
+    private fun getContent(url: String): String? {
+        if (filename == null)
             return httpRequest(url)
         val file = File(filename)
         if (file.exists())
@@ -59,7 +59,7 @@ class IEXQuoteSupplier(val filename : String? = null) : QuoteSupplier {
         return readResource(filename)
     }
 
-    override fun getQuotes(symbol :String, range : Range): List<Quote> {
+    override fun getQuotes(symbol: String, range: Range): List<Quote> {
         val url = CHART_URL.format(symbol, range.code)
         logger.info(url)
         val json: String? = getContent(url)

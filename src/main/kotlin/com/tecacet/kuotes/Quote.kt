@@ -7,7 +7,6 @@ enum class Range(val code: String) {
     ONE_MONTH("1m"), THREE_MONTHS("3m"), SIX_MONTHS("6m")
 }
 
-
 data class Quote(
         val date: LocalDate,
         val open: Double,
@@ -17,11 +16,11 @@ data class Quote(
         val volume: Long
 )
 
-enum class QualifiedStatus(val code : String) {
+enum class QualifiedStatus(val code: String) {
     QUALIFIED("Q"), PARTIALLY_QUALIFIED("P"), NON_QUALIFIED("N");
 
     companion object {
-        fun fromCode(code : String) : QualifiedStatus? {
+        fun fromCode(code: String): QualifiedStatus? {
             return when (code) {
                 "Q" -> QUALIFIED
                 "P" -> PARTIALLY_QUALIFIED
@@ -39,7 +38,7 @@ data class Dividend(
         val declaredDate: LocalDate,
         val amount: Double,
         val type: String,
-        val qualified : QualifiedStatus?
+        val qualified: QualifiedStatus?
 )
 
 
