@@ -6,7 +6,7 @@
 
     <groupId>com.tecacet</groupId>
     <artifactId>iex-kuotes</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>IEX KUOTES</name>
     <description>
