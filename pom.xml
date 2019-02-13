@@ -63,8 +63,9 @@
         <jupiter.version>5.4.0</jupiter.version>
         <nexus-staging.version>1.6.8</nexus-staging.version>
         <maven-source.version>3.0.1</maven-source.version>
-        <maven-javadoc.version>2.10.4</maven-javadoc.version>
+        <maven-javadoc.version>3.0.1</maven-javadoc.version>
         <maven-gpg.version>1.6</maven-gpg.version>
+        <dokka.version>0.9.17</dokka.version>
     </properties>
 
     <dependencies>
@@ -164,6 +165,26 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>0.9.17</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>dokka</goal>
+                            <goal>javadoc</goal>
+                            <goal>javadocJar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <file>packages.md</file>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>${maven-gpg.version}</version>
@@ -179,6 +200,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 
 </project>
