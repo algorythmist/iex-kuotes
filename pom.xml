@@ -4,7 +4,7 @@
 
     <groupId>com.tecacet</groupId>
     <artifactId>iex-kuotes</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <name>IEX KUOTES</name>
     <description>
@@ -35,7 +35,7 @@
         <url>https://github.com/algorythmist/iex-kuotes</url>
         <connection>scm:git:git@github.com:algorythmist/iex-kuotes.git</connection>
         <developerConnection>scm:git:git@github.com:algorythmist/iex-kuotes.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>iex-kuotes-1.0.2</tag>
   </scm>
 
     <ciManagement>
