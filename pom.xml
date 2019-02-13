@@ -4,7 +4,7 @@
 
     <groupId>com.tecacet</groupId>
     <artifactId>iex-kuotes</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <name>IEX KUOTES</name>
     <description>
@@ -63,7 +63,6 @@
         <jupiter.version>5.4.0</jupiter.version>
         <nexus-staging.version>1.6.8</nexus-staging.version>
         <maven-source.version>3.0.1</maven-source.version>
-        <maven-javadoc.version>3.0.1</maven-javadoc.version>
         <maven-gpg.version>1.6</maven-gpg.version>
         <dokka.version>0.9.17</dokka.version>
     </properties>
@@ -152,19 +151,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
                 <version>0.9.17</version>
@@ -201,6 +187,7 @@
         </plugins>
     </build>
 
+    <!-- for dokka -->
     <pluginRepositories>
         <pluginRepository>
             <id>jcenter</id>
@@ -208,6 +195,5 @@
             <url>https://jcenter.bintray.com/</url>
         </pluginRepository>
     </pluginRepositories>
-
 
 </project>
