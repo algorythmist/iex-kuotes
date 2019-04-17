@@ -18,10 +18,13 @@
         <okhttp.version>3.13.1</okhttp.version>
         <slf4j.version>1.7.25</slf4j.version>
         <jupiter.version>5.4.0</jupiter.version>
+        <dokka-plugin.version>0.9.18</dokka-plugin.version>
+        <jacoco-plugin.version>0.8.2</jacoco-plugin.version>
+        <coverage.totalLineRate>0.72</coverage.totalLineRate>
         <nexus-staging.version>1.6.8</nexus-staging.version>
         <maven-source.version>3.0.1</maven-source.version>
         <maven-gpg.version>1.6</maven-gpg.version>
-        <dokka.version>0.9.18</dokka.version>
+
     </properties>
 
     <dependencies>
@@ -142,7 +145,7 @@
             <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
-                <version>${dokka.version}</version>
+                <version>${dokka-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>prepare-package</phase>
@@ -158,6 +161,52 @@
                         <file>packages.md</file>
                     </includes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-plugin.version}</version>
+                <configuration>
+                    <rules>
+                        <rule>
+                            <element>BUNDLE</element>
+                            <limits>
+                                <limit implementation="org.jacoco.report.check.Limit">
+                                    <counter>LINE</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>${coverage.totalLineRate}</minimum>
+                                </limit>
+                                <limit implementation="org.jacoco.report.check.Limit">
+                                    <counter>CLASS</counter>
+                                    <value>MISSEDCOUNT</value>
+                                    <maximum>0</maximum>
+                                </limit>
+                            </limits>
+                        </rule>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -186,5 +235,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- for dokka -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

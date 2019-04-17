@@ -21,13 +21,13 @@ interface QuoteSupplier {
 
 class IEXQuoteSupplier(val filename: String? = null) : QuoteSupplier {
 
-    companion object {
-        val logger = LoggerFactory.getLogger(this::class.java)
-    }
+    private val logger = LoggerFactory.getLogger(this::class.java)
 
-    private val CHART_URL = "https://api.iextrading.com/1.0/stock/%s/chart/%s"
-    private val DIVIDENT_URL = "https://api.iextrading.com/1.0/stock/%s/dividends/%s"
-    private val SPLIT_URL = "https://api.iextrading.com/1.0/stock/%s/splits/%s"
+    companion object {
+        private val CHART_URL = "https://api.iextrading.com/1.0/stock/%s/chart/%s"
+        private val DIVIDENT_URL = "https://api.iextrading.com/1.0/stock/%s/dividends/%s"
+        private val SPLIT_URL = "https://api.iextrading.com/1.0/stock/%s/splits/%s"
+    }
 
     private val gsonBuilder = GsonBuilder()
     private val httpClient = OkHttpClient()
