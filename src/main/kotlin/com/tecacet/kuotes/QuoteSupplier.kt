@@ -3,11 +3,13 @@ package com.tecacet.kuotes
 import com.google.gson.GsonBuilder
 import com.tecacet.kuotes.gson.LocalDateDeserializer
 import com.tecacet.kuotes.gson.QualifiedStatusDeserializer
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
 import java.io.File
+import java.io.IOException
 import java.time.LocalDate
 
 interface QuoteSupplier {
@@ -19,14 +21,16 @@ interface QuoteSupplier {
     fun getSplits(symbol: String, range: Range = Range.ONE_YEAR): List<Split>
 }
 
-class IEXQuoteSupplier(val filename: String? = null) : QuoteSupplier {
+class IEXQuoteSupplier(val filename: String? = null,
+                       val tokenSupplier: TokenSupplier = EnvironmentTokenSupplier()) : QuoteSupplier {
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     companion object {
-        private val CHART_URL = "https://api.iextrading.com/1.0/stock/%s/chart/%s"
-        private val DIVIDENT_URL = "https://api.iextrading.com/1.0/stock/%s/dividends/%s"
-        private val SPLIT_URL = "https://api.iextrading.com/1.0/stock/%s/splits/%s"
+        private const val BASE_URL = "https://cloud.iexapis.com/v1"
+        private const val CHART_URL = "$BASE_URL/stock/%s/chart/%s"
+        private const val DIVIDEND_URL = "$BASE_URL/stock/%s/dividends/%s"
+        private const val SPLIT_URL = "$BASE_URL/stock/%s/splits/%s"
     }
 
     private val gsonBuilder = GsonBuilder()
@@ -45,9 +49,15 @@ class IEXQuoteSupplier(val filename: String? = null) : QuoteSupplier {
     private fun readResource(name: String) = ClassLoader.getSystemResource(name).readText()
 
     private fun httpRequest(url: String): String? {
-        val request = Request.Builder().url(url).build();
-        val response = httpClient.newCall(request).execute();
-        return response.body()?.string();
+        val httpBuilder = HttpUrl.parse(url)?.newBuilder()!!
+        httpBuilder.addQueryParameter("token", tokenSupplier.getToken())
+        val request = Request.Builder().url(httpBuilder.build()).build()
+        val response = httpClient.newCall(request).execute()
+        if (response.code() != 200) {
+            val message = response.body()?.string() ?: ""
+            throw IOException("Call to $url failed with code ${response.code()}: $message")
+        }
+        return response.body()?.string()
     }
 
     private fun getContent(url: String): String? {
@@ -68,7 +78,7 @@ class IEXQuoteSupplier(val filename: String? = null) : QuoteSupplier {
     }
 
     override fun getDividends(symbol: String, range: Range): List<Dividend> {
-        val url = DIVIDENT_URL.format(symbol, range.code)
+        val url = DIVIDEND_URL.format(symbol, range.code)
         logger.info(url)
         val json: String? = getContent(url)
         val gson = gsonBuilder.create()

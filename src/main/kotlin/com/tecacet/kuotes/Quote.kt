@@ -44,9 +44,7 @@ data class Dividend(
 
 data class Split(
         val exDate: LocalDate,
-        val paymentDate: LocalDate,
-        val recordDate: LocalDate,
         val declaredDate: LocalDate,
         val toFactor: Int,
-        val forFactor: Int
+        val fromFactor: Int
 )
