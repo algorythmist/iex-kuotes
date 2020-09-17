@@ -32,11 +32,11 @@ class IEXQuoteSupplierTest {
     fun testReadDividends() {
         val quoteReader = IEXQuoteSupplier()
         val dividends = quoteReader.getDividends("AAPL", Range.FIVE_YEARS)
-        assertTrue(dividends.size > 0) //This API appers to be faulty
-//        assertEquals(4, dividends.size)
-//        val dividend = dividends[0]
-//        assertEquals("Dividend income", dividend.type)
-//        assertEquals(QualifiedStatus.QUALIFIED, dividend.qualified)
+        assertTrue(dividends.size > 0) //This API appears to be faulty
+
+        val dividend = dividends[0]
+        assertEquals("Ordinary Shares", dividend.description)
+        assertEquals("quarterly", dividend.frequency)
     }
 
     @Test

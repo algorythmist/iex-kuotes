@@ -16,29 +16,15 @@ data class Quote(
         val volume: Long
 )
 
-enum class QualifiedStatus(val code: String) {
-    QUALIFIED("Q"), PARTIALLY_QUALIFIED("P"), NON_QUALIFIED("N");
-
-    companion object {
-        fun fromCode(code: String): QualifiedStatus? {
-            return when (code) {
-                "Q" -> QUALIFIED
-                "P" -> PARTIALLY_QUALIFIED
-                "N" -> NON_QUALIFIED
-                else -> null
-            }
-        }
-    }
-}
-
 data class Dividend(
         val exDate: LocalDate,
         val paymentDate: LocalDate,
         val recordDate: LocalDate,
         val declaredDate: LocalDate,
         val amount: Double,
-        val type: String,
-        val qualified: QualifiedStatus?
+        val frequency: String,
+        val description: String,
+        val flag: String?
 )
 
 
