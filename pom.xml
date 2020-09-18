@@ -24,7 +24,6 @@
         <nexus-staging.version>1.6.8</nexus-staging.version>
         <maven-source.version>3.0.1</maven-source.version>
         <maven-gpg.version>1.6</maven-gpg.version>
-
     </properties>
 
     <dependencies>
