@@ -89,8 +89,8 @@
     </scm>
 
     <ciManagement>
-        <system>TravisCI</system>
-        <url>https://travis-ci.org/algorythmist/iex-kuotes</url>
+        <system>GitHub</system>
+        <url>https://github.com/algorythmist/iex-kuotes/actions</url>
     </ciManagement>
 
     <issueManagement>
